@@ -8,7 +8,7 @@ const TasksList = () => {
 		},
 	];
 	return (
-		<div className="mt-10 flex flex-col gap-3">
+		<div className="mt-[3rem] flex flex-col gap-3">
 			{tasksLists.map((task) => (
 				<Task name={task.name} />
 			))}
