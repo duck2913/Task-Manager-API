@@ -8,12 +8,20 @@ const EditPage = () => {
 	const [newName, setNewName] = useState("");
 	const [completed, setCompleted] = useState(false);
 	const { taskId, oldName } = useParams();
+	const [message, setMessage] = useState("");
 
 	function updateTask(newTask) {
 		return axios.put(`http://localhost:4000/tasks/${taskId}`, newTask);
 	}
 
-	const { mutate } = useMutation(updateTask);
+	const { mutate, isLoading, isError, error } = useMutation(updateTask, {
+		onSuccess: (data) => {
+			setMessage(data.data);
+			setTimeout(() => {
+				setMessage("");
+			}, 1000);
+		},
+	});
 
 	function handleEdit() {
 		mutate({
@@ -57,12 +65,15 @@ const EditPage = () => {
 						}}
 					/>
 				</div>
+				{message && <p className="text-center text-green-700 font-bold">{message}</p>}
 				<button
 					className="text-center mx-auto w-[4rem] bg-purple-500 text-white font-semibold rounded-md px-10 py-1 flex justify-center active:translate-y-1"
 					onClick={handleEdit}
 				>
 					Edit
 				</button>
+				{isLoading && <p>Loading...</p>}
+				{isError && <p>{error}</p>}
 			</div>
 			<button className="w-[30%] mx-auto bg-black p-2 rounded-md shadow-md mt-[3rem] text-white font-semibold">
 				<Link to={"/"}>Go back to tasks</Link>

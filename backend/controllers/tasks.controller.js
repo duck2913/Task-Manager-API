@@ -8,7 +8,7 @@ const getTasks = async (_, res) => {
 const addTask = async (req, res, next) => {
 	try {
 		const taskName = req.body.name;
-		await db.any("insert into tasks(name) values($1)", taskName);
+		await db.any("insert into tasks(name) values($1) order by id", taskName);
 		res.json("insert successfully");
 	} catch (err) {
 		res.json("insert failed!");
