@@ -1,15 +1,23 @@
 console.clear();
 // libraries
 const express = require("express");
-const app = express();
+const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const app = express();
 // middleware
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use("/", (req, res) => {
-	res.send("hell");
+// routes
+const tasksRouter = require("./routes/tasks.routes");
+
+app.use("/tasks", tasksRouter);
+
+// error handling
+app.use((error, req, res, next) => {
+	console.error(error);
 });
 
 app.listen(4000, () => {
