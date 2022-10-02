@@ -15,7 +15,7 @@ const TasksList = () => {
 			{isLoading && <p className="m-5 text-center">Loading...</p>}
 			{isError && <p>{error}</p>}
 			{data?.data?.map((task) => (
-				<Task name={task.name} key={task.id} />
+				<Task name={task.name} key={task.id} id={task.id} completed={task.completed} />
 			))}
 		</div>
 	);

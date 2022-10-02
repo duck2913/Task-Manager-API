@@ -1,11 +1,26 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 const InputForm = () => {
 	const [task, setTask] = useState("");
+	const queryClient = useQueryClient();
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		mutate(task);
+		setTask("");
 	}
+
+	function addTask(task) {
+		return axios.post("http://localhost:4000/tasks", { name: task });
+	}
+
+	const { mutate, isLoading, isError, error } = useMutation(addTask, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("tasks");
+		},
+	});
 
 	return (
 		<form
@@ -23,6 +38,8 @@ const InputForm = () => {
 				/>
 				<button className="bg-purple-600 text-white p-3 py-1">Submit</button>
 			</div>
+			{isLoading && <p>Adding a task ...</p>}
+			{isError && <p>{error}</p>}
 		</form>
 	);
 };

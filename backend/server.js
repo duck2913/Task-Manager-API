@@ -17,7 +17,7 @@ app.use("/tasks", tasksRouter);
 
 // error handling
 app.use((error, req, res, next) => {
-	console.error(error);
+	console.log("WTF: " + error);
 });
 
 app.listen(4000, () => {
