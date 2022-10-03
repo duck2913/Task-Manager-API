@@ -8,7 +8,7 @@ const getTasks = async (_, res) => {
 const addTask = async (req, res, next) => {
 	try {
 		const taskName = req.body.name;
-		await db.any("insert into tasks(name) values($1) order by id", taskName);
+		await db.any("insert into tasks(name) values($1) order by id asc", taskName);
 		res.json("insert successfully");
 	} catch (err) {
 		res.json("insert failed!");
@@ -39,8 +39,19 @@ const updateTask = async (req, res, next) => {
 	}
 };
 
+const deleteTask = async (req, res, next) => {
+	try {
+		const { taskId } = req.params;
+		await db.any("delete from tasks where id = $1", taskId);
+	} catch (error) {
+		res.json("delete fail");
+		next(error);
+	}
+};
+
 module.exports = {
 	getTasks,
 	addTask,
 	updateTask,
+	deleteTask,
 };
