@@ -43,6 +43,7 @@ const deleteTask = async (req, res, next) => {
 	try {
 		const { taskId } = req.params;
 		await db.any("delete from tasks where id = $1", taskId);
+		res.json("delete successfully");
 	} catch (error) {
 		res.json("delete fail");
 		next(error);

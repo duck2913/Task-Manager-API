@@ -6,13 +6,11 @@ import axios from "axios";
 const Task = ({ name, id, completed }) => {
 	const queryClient = useQueryClient();
 
-	function handleDoubleClick(id, completed) {
-		mutateUpdate({ id, completed });
-	}
-
-	function handleDelete(id) {
-		mutateDelete(id);
-	}
+	const { mutate: mutateUpdate } = useMutation(updateTask, {
+		onSuccess: () => {
+			queryClient.invalidateQueries("tasks");
+		},
+	});
 
 	function updateTask({ id, completed }) {
 		return axios.put(`http://localhost:4000/tasks/${id}`, {
@@ -21,21 +19,23 @@ const Task = ({ name, id, completed }) => {
 		});
 	}
 
-	function deleteTask(id) {
-		return axios.delete(`http://localhost:4000/tasks/${id}`);
+	function handleDoubleClick(id, completed) {
+		mutateUpdate({ id, completed });
 	}
-
-	const { mutate: mutateUpdate } = useMutation(updateTask, {
-		onSuccess: () => {
-			queryClient.invalidateQueries("tasks");
-		},
-	});
 
 	const { mutate: mutateDelete } = useMutation(deleteTask, {
 		onSuccess: () => {
+			console.log("hello");
 			queryClient.invalidateQueries("tasks");
 		},
 	});
+	function handleDelete(id) {
+		mutateDelete(id);
+	}
+
+	function deleteTask(id) {
+		return axios.delete(`http://localhost:4000/tasks/${id}`);
+	}
 
 	return (
 		<div
@@ -44,13 +44,13 @@ const Task = ({ name, id, completed }) => {
 		>
 			<p className={`font-semibold text-sm ${completed ? "line-through" : ""}`}>{name}</p>
 			<div>
-				<button className="text-sm mr-2 bg-green-200 p-2 rounded-full">
+				<button className="text-sm mr-2 bg-green-200 p-2 rounded-full active:translate-y-2">
 					<Link to={`/edit/${id}/${name}`} params={{ oldName: name }}>
 						📋
 					</Link>
 				</button>
 				<button
-					className="text-sm bg-red-200 p-2 rounded-full"
+					className="text-sm bg-red-200 p-2 rounded-full active:translate-y-2"
 					onClick={() => handleDelete(id)}
 				>
 					🗑️
