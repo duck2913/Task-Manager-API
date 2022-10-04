@@ -1,14 +1,14 @@
 const db = require("../utils/database");
 
 const getTasks = async (_, res) => {
-	const tasks = await db.any("select * from tasks");
+	const tasks = await db.any("select * from tasks order by id asc");
 	res.json(tasks);
 };
 
 const addTask = async (req, res, next) => {
 	try {
 		const taskName = req.body.name;
-		await db.any("insert into tasks(name) values($1) order by id asc", taskName);
+		await db.any("insert into tasks(name) values($1)", taskName);
 		res.json("insert successfully");
 	} catch (err) {
 		res.json("insert failed!");
