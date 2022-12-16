@@ -1,6 +1,7 @@
-import InputForm from "./components/InputForm";
-import TasksList from "./components/TasksList";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import InputForm from "./components/InputForm"
+import TasksList from "./components/TasksList"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+
 function App() {
 	return (
 		<div className="App bg-slate-200 min-h-screen max-w-screen py-[3rem] ">
@@ -10,7 +11,7 @@ function App() {
 			</div>
 			<ReactQueryDevtools />
 		</div>
-	);
+	)
 }
 
-export default App;
+export default App

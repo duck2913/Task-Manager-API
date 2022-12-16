@@ -1,13 +1,7 @@
-const pgp = require("pg-promise")();
+const pgp = require("pg-promise")()
 
-const connectionConfig = {
-	host: "localhost",
-	port: 5433,
-	user: "postgres",
-	password: "admin",
-	database: "postgres",
-};
+const url = "postgresql://postgres:5MLDo7Yb2Aso4xAgRWTm@containers-us-west-180.railway.app:6900/railway"
 
-const db = pgp(connectionConfig);
+const db = pgp(url)
 
-module.exports = db;
+module.exports = db

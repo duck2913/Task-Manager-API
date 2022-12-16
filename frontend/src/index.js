@@ -1,14 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from "react"
+import ReactDOM from "react-dom/client"
 
-import "./index.css";
-import App from "./App";
-import ErrorPage from "./pages/ErrorPage";
-import EditPage from "./pages/EditPage";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./index.css"
+import App from "./App"
+import ErrorPage from "./pages/ErrorPage"
+import EditPage from "./pages/EditPage"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 const router = createBrowserRouter([
 	{
@@ -20,11 +19,11 @@ const router = createBrowserRouter([
 		path: "edit/:taskId/:oldName",
 		element: <EditPage />,
 	},
-]);
+])
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
 	<React.StrictMode>
 		<QueryClientProvider client={queryClient}>
@@ -32,4 +31,4 @@ root.render(
 			{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 		</QueryClientProvider>
 	</React.StrictMode>,
-);
+)
