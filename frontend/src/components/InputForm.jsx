@@ -1,32 +1,29 @@
-import { useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { useState } from "react"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import axios from "axios"
 
 const InputForm = () => {
-	const [task, setTask] = useState("");
-	const queryClient = useQueryClient();
+	const [task, setTask] = useState("")
+	const queryClient = useQueryClient()
 
 	function handleSubmit(e) {
-		e.preventDefault();
-		mutate(task);
-		setTask("");
+		e.preventDefault()
+		mutate(task)
+		setTask("")
 	}
 
 	function addTask(task) {
-		return axios.post("http://localhost:4000/tasks", { name: task });
+		return axios.post(`${process.env.REACT_APP_SERVER_URL}/tasks`, { name: task })
 	}
 
 	const { mutate, isLoading, isError, error } = useMutation(addTask, {
 		onSuccess: () => {
-			queryClient.invalidateQueries("tasks");
+			queryClient.invalidateQueries("tasks")
 		},
-	});
+	})
 
 	return (
-		<form
-			className="bg-white p-10 w-full text-center rounded-md shadow-sm"
-			onSubmit={handleSubmit}
-		>
+		<form className="bg-white p-10 w-full text-center rounded-md shadow-sm" onSubmit={handleSubmit}>
 			<h1 className="font-semibold text-xl">Task Manager</h1>
 			<div className="flex mt-5">
 				<input
@@ -41,7 +38,7 @@ const InputForm = () => {
 			{isLoading && <p>Adding a task ...</p>}
 			{isError && <p>{error}</p>}
 		</form>
-	);
-};
+	)
+}
 
-export default InputForm;
+export default InputForm

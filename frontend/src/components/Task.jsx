@@ -13,7 +13,7 @@ const Task = ({ name, id, completed }) => {
 	})
 
 	function updateTask({ id, completed }) {
-		return axios.put(`http://localhost:4000/tasks/${id}`, {
+		return axios.put(`${process.env.REACT_APP_SERVER_URL}/tasks/${id}`, {
 			newName: "",
 			completed: !completed,
 		})
@@ -33,7 +33,7 @@ const Task = ({ name, id, completed }) => {
 	}
 
 	function deleteTask(id) {
-		return axios.delete(`http://localhost:4000/tasks/${id}`)
+		return axios.delete(`${process.env.REACT_APP_SERVER_URL}/tasks/${id}`)
 	}
 
 	return (

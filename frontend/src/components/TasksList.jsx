@@ -1,14 +1,14 @@
-import React from "react";
-import Task from "./Task";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import React from "react"
+import Task from "./Task"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
 
 const TasksList = () => {
 	const fetchTasks = () => {
-		return axios.get("http://localhost:4000/tasks");
-	};
+		return axios.get(`${process.env.REACT_APP_SERVER_URL}/tasks`)
+	}
 
-	const { isLoading, isError, error, data } = useQuery(["tasks"], fetchTasks);
+	const { isLoading, isError, error, data } = useQuery(["tasks"], fetchTasks)
 
 	return (
 		<div className="mt-[3rem] flex flex-col gap-3">
@@ -18,7 +18,7 @@ const TasksList = () => {
 				<Task name={task.name} key={task.id} id={task.id} completed={task.completed} />
 			))}
 		</div>
-	);
-};
+	)
+}
 
-export default TasksList;
+export default TasksList

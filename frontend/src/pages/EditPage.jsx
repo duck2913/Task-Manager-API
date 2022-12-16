@@ -11,7 +11,7 @@ const EditPage = () => {
 	const [message, setMessage] = useState("")
 
 	function updateTask(newTask) {
-		return axios.put(`http://localhost:4000/tasks/${taskId}`, newTask)
+		return axios.put(`${process.env.REACT_APP_SERVER_URL}/tasks/${taskId}`, newTask)
 	}
 
 	const { mutate, isLoading, isError, error } = useMutation(updateTask, {
