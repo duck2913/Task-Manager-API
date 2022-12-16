@@ -3,7 +3,7 @@
 
 A simple CRUD application with ExpressJS and ReactJS
 
-The easiest way to setup this project is by running it through docker
+To run this project through docker
 
 ```
 // for the frontend directory
