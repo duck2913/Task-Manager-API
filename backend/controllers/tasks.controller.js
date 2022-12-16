@@ -25,8 +25,8 @@ const updateTask = async (req, res, next) => {
 	try {
 		const taskId = req.params.taskId
 		const { newName, completed } = req.body
+		console.log("🚀 -> file: tasks.controller.js:28 -> updateTask -> newName, completed", newName, completed)
 		await Task.updateTask(taskId, newName, completed)
-
 		res.json("Update successfully")
 	} catch (error) {
 		res.json("update failed")

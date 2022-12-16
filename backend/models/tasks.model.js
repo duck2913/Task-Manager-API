@@ -2,7 +2,7 @@ const db = require("../utils/database")
 
 class Tasks {
 	static async getTasks() {
-		return await db.any("select * from tasks")
+		return await db.any("select * from tasks order by id")
 	}
 
 	static async addNewTask(name) {
@@ -10,20 +10,19 @@ class Tasks {
 	}
 
 	static async updateTask(taskId, newName, completed) {
-		const status = completed === "false"
 		if (newName) {
 			return await db.any(
 				`update tasks
 					set name = $1, completed = $2
 					where id = $3`,
-				[newName, status, taskId],
+				[newName, completed, taskId],
 			)
 		} else {
 			return await db.any(
 				`update tasks
 					set completed = $1
 					where id = $2`,
-				[status, taskId],
+				[completed, taskId],
 			)
 		}
 	}

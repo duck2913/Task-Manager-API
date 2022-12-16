@@ -1,35 +1,35 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query"
+import axios from "axios"
 
 const EditPage = () => {
-	const [newName, setNewName] = useState("");
-	const [completed, setCompleted] = useState(false);
-	const { taskId, oldName } = useParams();
-	const [message, setMessage] = useState("");
+	const [newName, setNewName] = useState("")
+	const [completed, setCompleted] = useState(false)
+	const { taskId, oldName } = useParams()
+	const [message, setMessage] = useState("")
 
 	function updateTask(newTask) {
-		return axios.put(`http://localhost:4000/tasks/${taskId}`, newTask);
+		return axios.put(`http://localhost:4000/tasks/${taskId}`, newTask)
 	}
 
 	const { mutate, isLoading, isError, error } = useMutation(updateTask, {
 		onSuccess: (data) => {
-			setMessage(data.data);
+			setMessage(data.data)
 			setTimeout(() => {
-				setMessage("");
-			}, 1000);
+				setMessage("")
+			}, 1000)
 		},
-	});
+	})
 
 	function handleEdit() {
 		mutate({
 			newName,
 			completed,
-		});
-		setCompleted(false);
-		setNewName("");
+		})
+		setCompleted(false)
+		setNewName("")
 	}
 
 	return (
@@ -51,7 +51,7 @@ const EditPage = () => {
 						className="bg-slate-100 focus:outline-none rounded-lg text-slate-500 p-2"
 						value={newName}
 						onChange={(e) => {
-							setNewName(e.target.value);
+							setNewName(e.target.value)
 						}}
 					/>
 				</div>
@@ -61,15 +61,14 @@ const EditPage = () => {
 						type="checkbox"
 						value={completed}
 						onChange={(e) => {
-							setCompleted(e.target.checked);
+							setCompleted(e.target.checked)
 						}}
 					/>
 				</div>
 				{message && <p className="text-center text-green-700 font-bold">{message}</p>}
 				<button
 					className="text-center mx-auto w-[4rem] bg-purple-500 text-white font-semibold rounded-md px-10 py-1 flex justify-center active:translate-y-1"
-					onClick={handleEdit}
-				>
+					onClick={handleEdit}>
 					Edit
 				</button>
 				{isLoading && <p>Loading...</p>}
@@ -79,7 +78,7 @@ const EditPage = () => {
 				<Link to={"/"}>Go back to tasks</Link>
 			</button>
 		</div>
-	);
-};
+	)
+}
 
-export default EditPage;
+export default EditPage
