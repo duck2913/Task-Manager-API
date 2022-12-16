@@ -4,8 +4,17 @@
 A simple CRUD application with ExpressJS and ReactJS
 
 The easiest way to setup this project is by running it through docker
+
 ```
-docker pull duck1010/task-manager-frontend // for the frontend directory
-docker pull duck1010/task-manager-backend // for the backend directory
+// for the frontend directory
+docker pull duck1010/task-manager-frontend 
+docker run --name  frontend -p 3000:3000 -d duck1010/task-manager-frontend
+```
+
+
+```
+// for the backend directory
+docker pull duck1010/task-manager-backend 
+docker run --name  backend -p 4000:4000 -d duck1010/task-manager-backend
 ```
 
