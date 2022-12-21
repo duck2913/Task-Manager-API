@@ -1,6 +1,6 @@
 const pgp = require("pg-promise")()
 
-const url = "postgresql://postgres:5MLDo7Yb2Aso4xAgRWTm@containers-us-west-180.railway.app:6900/railway"
+const url = "postgres://jjvfltnl:6jz_506PoCUo_OgDLlItKJ_6bSOf6YhU@tiny.db.elephantsql.com/jjvfltnl"
 
 const db = pgp(url)
 
